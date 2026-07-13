@@ -19,6 +19,7 @@
 #define UCSZ10 1
 
 #define UDRE1 5
+#define RXCN1 7
 
 void usart_init(void) {
 
@@ -41,6 +42,13 @@ void send_char(char c) {
   }
   UDR1 = c;
   
+}
+
+char receive_char(void) {
+  while(!(UCSR1A & (1 << RXCN1)) {
+    
+  }
+  return UDR1;
 }
 
 void send_string(const char* s) {
