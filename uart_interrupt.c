@@ -57,8 +57,19 @@ void tx_string(const char* str) {
 
 ISR(USART0_RX_vect){
 
+  // Reiceiving bytes from the computer TX Line 
   char c = UDR0;
-  if(c == '\r' || c == '\n'){
+
+  if(c == '\b' || c == 0x7F) {
+    if(head > 0) {
+      head--;
+      buffer[head] = '\0';
+      x_char('\b');
+      x_char(' ');
+      x_char('\b');
+    }
+  }
+  else if(c == '\r' || c == '\n'){
     buffer[head] = '\0';
     x_char('\r');
     x_char('\n');
